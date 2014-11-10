@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sample: MyString
+  clip_path: MyString
+  sequence: MyText
+  song_id: 
+
+two:
+  sample: MyString
+  clip_path: MyString
+  sequence: MyText
+  song_id: 
