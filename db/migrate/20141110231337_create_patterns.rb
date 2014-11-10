@@ -3,7 +3,7 @@ class CreatePatterns < ActiveRecord::Migration
     create_table :patterns do |t|
       t.string :sample
       t.string :clip_path
-      t.text :sequence, array: true, default: []
+      t.boolean :sequence, array: true, default: []
       t.references :song, index: true
 
       t.timestamps
