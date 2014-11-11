@@ -1,3 +1,20 @@
-<div ng-app="" class="container">
+<div ng-app="MainApp" class="container">
+<div ng-controller="MainController">
+  
+
   <h1>Main</h1>
+  {{currentSong.patterns}}
+  
+  <p ng-repeat="pattern in currentSong.patterns">
+    {{pattern.id}}
+  </p>
+
+  <table>
+    <tr ng-repeat="pattern in currentSong.patterns">
+      <td>{{pattern.id}}</td>
+      <td>{{pattern.sample}}</td>
+      <td>{{pattern.sequence}}</td>
+    </tr>
+  </table>
+</div>
 </div>
