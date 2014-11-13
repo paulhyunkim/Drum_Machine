@@ -12,6 +12,8 @@
   <select ng-model="currentSong" ng-options="song.title for song in songs">
   </select>
 
+  <button ng-click="togglePlay()"></button>
+
   <table class="sequencer">
     <tr ng-repeat="pattern in currentSong.patterns" class="pattern">
       <td>{{pattern.id}}</td>
@@ -19,5 +21,7 @@
       <td ng-repeat="s in pattern.sequence track by $index" class="step" ng-class="{green: s}" ng-click="toggleStep($parent.$index, $index)"></td>
     </tr>
   </table>
+
+  <button ng-click="updateSong()">Save</button>
 </div>
 </div>

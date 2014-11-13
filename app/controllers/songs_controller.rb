@@ -20,7 +20,23 @@ class SongsController < ApplicationController
   end
 
   def update
-    @song.update(song_params)
+    puts "updating XXX"
+    puts @song.inspect
+
+    if @song.update(song_params)
+      puts "updated XXX"
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render nothing: true, status: :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { render 'edit' }
+        format.json { render json: @song.errors, status: :unprocessable_entity }
+      end
+    end
+
+    # @song.update(song_params)
   end
 
   def destroy
@@ -34,7 +50,7 @@ class SongsController < ApplicationController
   end
 
   def song_params
-    params.require(:song).permit(:title, :tempo, :user_id)
+    params.require(:song).permit(:id, :title, :tempo, :user_id)
   end
 
 end

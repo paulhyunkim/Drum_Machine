@@ -1,4 +1,4 @@
-var app = angular.module('MainApp', ['ngResource']);
+var app = angular.module('MainApp', ['ngResource', 'ngAudio']);
 
 app.config(['$httpProvider', function($httpProvider) {
     var authToken = angular.element("meta[name=\"csrf-token\"]").attr("content");
@@ -11,12 +11,12 @@ app.config(['$httpProvider', function($httpProvider) {
 }]);
 
 app.factory('Song', ['$resource', function($resource) {
-  return $resource('/songs',
-     { },
+  return $resource('/songs/:id',
+     {id: '@id'},
      {update: { method: 'PATCH'}});
 }]);
 
-app.controller('MainController', ['$scope', 'Song', function($scope, Song) {
+app.controller('MainController', ['$scope', 'ngAudio', 'Song', function($scope, ngAudio, Song) {
     $scope.songs = [];
 
     $scope.newSong = new Song();
@@ -58,11 +58,11 @@ app.controller('MainController', ['$scope', 'Song', function($scope, Song) {
       song.details = false;
     }
 
-    $scope.updateSong = function(song) {
-      song.$update(function() {
-        song.editing = false;
+    $scope.updateSong = function() {
+      $scope.currentSong.$update({id:$scope.currentSong.id}, function() {
+        console.log("updated");
       }, function(errors) {
-        $scope.errors = errors.data
+        // $scope.errors = errors.data
       });
     }
 
@@ -70,9 +70,19 @@ app.controller('MainController', ['$scope', 'Song', function($scope, Song) {
       $scope.currentSong.patterns[pattern].sequence[step] = !$scope.currentSong.patterns[pattern].sequence[step];
     }
 
-    $scope.playSong = function() {
+    $scope.songPlaying = false;
 
+    $scope.togglePlay = function() {
+      if ($scope.songPlaying === false) {
+        $scope.sound.play();
+      } else {
+        $scope.sound.stop();
+      }
+      $scope.songPlaying = !$scope.songPlaying;
     }
+
+    $scope.sound = ngAudio.load('audios/hello.mp3');
+
 
 
 }])
