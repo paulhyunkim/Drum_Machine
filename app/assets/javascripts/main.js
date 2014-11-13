@@ -67,7 +67,7 @@ app.controller('MainController', ['$scope', 'Song', function($scope, Song) {
     }
 
     $scope.toggleStep = function(pattern, step) {
-      $scope.currentSong.patterns[pattern].sequence[step] = !$scope.currentSong.patterns[array].sequence[step];
+      $scope.currentSong.patterns[pattern].sequence[step] = !$scope.currentSong.patterns[pattern].sequence[step];
     }
 
     $scope.playSong = function() {
